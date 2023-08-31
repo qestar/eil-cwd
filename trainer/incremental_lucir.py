@@ -159,6 +159,7 @@ def incremental_train_and_eval(the_args, epochs, fusion_vars, ref_fusion_vars, b
             aux_loss = DecorrelateLossClass(reject_threshold=1, ddp=False)
             features = F.normalize(outputs, p=2, dim=-1)
             loss5 = aux_loss(features, targets) * 0.5
+            print(f'loss5；{loss5}')
 
 
             # Sum up all looses
