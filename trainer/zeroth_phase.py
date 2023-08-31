@@ -67,7 +67,6 @@ def incremental_train_and_eval_zeroth_phase(the_args, epochs, b1_model, ref_mode
             aux_loss = DecorrelateLossClass(reject_threshold=1, ddp=False)
             features = F.normalize(outputs, p=2, dim=-1)
             loss = aux_loss(features, targets) * 0.5
-            print(f'****CWDloss****；{loss}')
 
             # Backward and update the parameters
             loss.backward()
