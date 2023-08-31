@@ -20,6 +20,9 @@ from utils.misc import *
 from utils.process_fp import process_inputs_fp
 import torch.nn.functional as F
 
+from classification.trainer.aux_loss import DecorrelateLossClass
+
+
 def incremental_train_and_eval_zeroth_phase(the_args, epochs, b1_model, ref_model, \
     tg_optimizer, tg_lr_scheduler, trainloader, testloader, iteration, start_iteration, \
     lamda, dist, K, lw_mr, fix_bn=False, weight_per_class=None, device=None):
@@ -60,7 +63,12 @@ def incremental_train_and_eval_zeroth_phase(the_args, epochs, b1_model, ref_mode
             tg_optimizer.zero_grad()
             # Forward the samples in the deep networks
             outputs = b1_model(inputs)
-            # Compute classification loss
+            # Loss CWD
+            aux_loss = DecorrelateLossClass(reject_threshold=1, ddp=False)
+            features = F.normalize(outputs, p=2, dim=-1)
+            loss5 = aux_loss(features, targets) * 0.5
+            print(f'****loss5****；{loss5}')
+
             loss = nn.CrossEntropyLoss(weight_per_class)(outputs, targets)
             # Backward and update the parameters
             loss.backward()

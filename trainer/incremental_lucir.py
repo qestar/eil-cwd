@@ -155,15 +155,10 @@ def incremental_train_and_eval(the_args, epochs, fusion_vars, ref_fusion_vars, b
             # loss4 = nn.KLDivLoss()(F.log_softmax(outputs[:, :num_old_classes] / T, dim=1), \
             #                        F.softmax(ref_outputs.detach() / T, dim=1)) * T * T * beta * num_old_classes
 
-            #Loss5
-            aux_loss = DecorrelateLossClass(reject_threshold=1, ddp=False)
-            features = F.normalize(outputs, p=2, dim=-1)
-            loss5 = aux_loss(features, targets) * 0.5
-            print(f'loss5；{loss5}')
 
 
             # Sum up all looses
-            loss = loss1 + loss2 + loss3 + loss4 + loss5
+            loss = loss1 + loss2 + loss3 + loss4
 
             # Backward and update the parameters
             loss.backward()
