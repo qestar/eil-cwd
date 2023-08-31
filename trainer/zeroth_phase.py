@@ -20,7 +20,7 @@ from utils.misc import *
 from utils.process_fp import process_inputs_fp
 import torch.nn.functional as F
 
-from classification.trainer.aux_loss import DecorrelateLossClass
+from trainer.aux_loss import DecorrelateLossClass
 
 
 def incremental_train_and_eval_zeroth_phase(the_args, epochs, b1_model, ref_model, \
