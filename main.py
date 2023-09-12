@@ -48,7 +48,7 @@ if __name__ == '__main__':
     parser.add_argument('--nb_cl_fg', default=50, type=int, help='the number of classes in the 0-th phase')
     parser.add_argument('--nb_cl', default=10, type=int, help='the number of classes for each phase')
     parser.add_argument('--nb_protos', default=20, type=int, help='the number of exemplars for each class')
-    parser.add_argument('--epochs', default=160, type=int, help='the number of epochs')
+    parser.add_argument('--epochs', default=80, type=int, help='the number of epochs')
     parser.add_argument('--dynamic_budget', action='store_true', help='using dynamic budget setting')
     parser.add_argument('--fusion_lr', default=1e-8, type=float, help='the learning rate for the aggregation weights')
 
